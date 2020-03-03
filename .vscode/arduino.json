@@ -1,0 +1,6 @@
+{
+    "board": "SparkFun:avr:promicro",
+    "sketch": "serial.ino",
+    "port": "COM11",
+    "configuration": "cpu=16MHzatmega32U4"
+}
