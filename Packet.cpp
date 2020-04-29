@@ -19,7 +19,7 @@ int Packet::setData(unsigned char *data, unsigned char dataSize)
 }
 
 int Packet::getPacketSize(){
-    return 3 + this->dataSize + chkSumSize;
+    return 3 + this->dataSize + this->chkSumSize;
 }
 
 int Packet::getPacket(unsigned char *data, unsigned char arraySize)
@@ -54,7 +54,7 @@ void Packet::getLEDPacket(unsigned char *data, unsigned char arraySize)
     ledpack[2] = 0x61;
     ledpack[3] = 0x3f;
 
-    for(int i = 0;i < this::dataSize; i++){
+    for(int i = 0;i < this->dataSize; i++){
         if(data[i] != 0x00)
         {
             ledpack[(i * 3) + 4] = touched;
@@ -71,7 +71,8 @@ void Packet::getLEDPacket(unsigned char *data, unsigned char arraySize)
     
 }
 
-void Packet::calcCheckSum(){
+void Packet::calcCheckSum()
+{
     unsigned char sum = 0x00;
     sum += 0xff;
     sum += this->command;
@@ -96,9 +97,10 @@ void Packet::calcCheckSum(){
         this->chkSum[0] = sum;
         this->chkSumSize = 1;
     }
+}
 
-    void Packet::append(unsigned char data){
-        this->dataSize++;
-        this->data[this->dataSize-1] = data;
-    }
+void Packet::append(unsigned char data)
+{
+    this->dataSize++;
+    this->data[this->dataSize - 1] = data;
 }
